@@ -120,77 +120,6 @@ In GAP8, all the external peripherals are controlled by a unit we call the micro
 
  1 SPI C, C++ API
 
-Arm® Mbed™ OS standard C API :
-
-```
-/** Write a byte out in master mode and receive a value
- *
- * @param[in] obj   The SPI peripheral to use for sending
- * @param[in] value The value to send
- * @return Returns the value received during send
- */
-int  spi_master_write(spi_t *obj, int value);
-```
-
-GAP8 version, separated into two functions :
-
-```
-/** Write a byte out in master mode
- *
- * @param[in] obj   The SPI peripheral to use for sending
- * @param[in] value The value to send
- * @return Returns status
- */
-int  spi_master_write(spi_t *obj, int value);
-```
-```
-/** Read a byte in master mode
- *
- * @param[in] obj   The SPI peripheral to use for sending
- * @param[in] cmd   The SPI send command to read
- * @return Returns the value received
- */
-int spi_master_read(spi_t *obj, int cmd);
-```
-
-Arm® Mbed™ OS standard C++ API :
-
-```
-/** Write to the SPI Slave and return the response
- *
- *  @param value Data to be sent to the SPI slave
- *
- *  @returns
- *    Response from the SPI slave
-*/
-virtual int write(int value);
-```
-
-GAP8 version, separated into two functions :
-
-```
-/** Write to the SPI Slave
- *
- *  @param value Data to be sent to the SPI slave
- *
- *  @returns
- *    Response from the SPI slave
- */
-virtual int write(int value);
-```
-```
-/** Read response
- *
- *  Here we use explicit transfer, so just write something to SPI slave
- *  without return. But read means write a command to read a response.
- *
- *
- *  @returns
- *    Response from the SPI slave
- */
-virtual int read();
-```
-
 In normal SPI transfer, users may want to control the chip select signal before and after the transfer, here is the common use in mbed:
 
 ```
@@ -225,29 +154,6 @@ spi.udma_cs(0);
 
 // Send 0x8f, the command to read the WHOAMI register
 spi.write(0x8F);
-
-// Deselect the device
-spi.udma_cs(1);
-```
-If users want to read from a register, the mbed common usage is :
-```
-// Select the device by seting chip select low
-cs = 0;
-
-// Send 0x8f, the command to read the WHOAMI register
-whoami = spi.write(0x8F);
-
-// Deselect the device
-cs = 1;
-```
-In GAP8, we use explicit transfer :
-```
-// Select the device by seting chip select low
-spi.udma_cs(0);
-
-// Send 0x8f, the command to read the WHOAMI register
-spi.write(0x9F);
-whoami = spi.read();
 
 // Deselect the device
 spi.udma_cs(1);
@@ -312,7 +218,7 @@ char result;
 
 spi.udma_cs(0);
 spi.write(0x06);
-result = spi.read();
+result = spi.write(0x00);
 spi.udma_cs(1);
 ```
 or
@@ -339,8 +245,8 @@ char result[2];
 
 spi.udma_cs(0);
 spi.write(0x06);
-result[0] = spi.read();
-result[1] = spi.read();
+result[0] = spi.write(0x00);
+result[1] = spi.write(0x00);
 spi.udma_cs(1);
 ```
 or
@@ -431,7 +337,7 @@ spi.udma_qpsi(1);
 
 spi.udma_cs(0);
 spi.write(0x06);
-result = spi.read();
+result = spi.write(0x00);
 spi.udma_cs(1);
 ```
 or
@@ -473,10 +379,10 @@ spi.write(0x00);
 spi.write(0x00);
 spi.write(0x00);
 
-result[0] = spi.read();
-result[1] = spi.read();
-result[2] = spi.read();
-result[3] = spi.read();
+result[0] = spi.write(0x00);
+result[1] = spi.write(0x00);
+result[2] = spi.write(0x00);
+result[3] = spi.write(0x00);
 spi.udma_cs(1);
 ```
 or
