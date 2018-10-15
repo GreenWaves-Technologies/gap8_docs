@@ -38,60 +38,11 @@ So how to use these memory resources in Arm® Mbed™ OS to create an efficient 
 | STACK | Memory Type
 |------------------ |-----------------
 | L1_each_core_stack | L1 TCDM
-| OS_stack | FC TCDM
-| Main_thread_stack | FC TCDM
-| Idle_thread_stack | FC TCDM
-| Timer_thread_stack | FC TCDM
+| OS_stack | L2 RAM
+| Main_thread_stack | L2 RAM
+| Idle_thread_stack | L2 RAM
+| Timer_thread_stack | L2 RAM
 | APP_thread_stack | L2 RAM
-
-So as we can see, the main thread stack is in FC TCDM, so all local variables in main thread are in FC TCDM with starting address of 0x1B00xxxx. So these variables can not seen by UDMA if you want to transfer data. Here is the examples :
-```
-#include "mbed.h"
-// Read BMP280 ID
-I2C i2c(I2C0_SDA, I2C0_SCL);
-
-#define BMP_ADDR  0xEC;
-
-int main() {
-
-    i2c.frequency(200000);
-
-    char reg_addr;
-    char id;
-
-    reg_addr = 0xD0;
-
-    i2c.write(BMP_ADDR, &reg_addr, 1, 1);
-    i2c.read(BMP_ADDR, &id, 1);
-
-    printf("Read ID = %x\n", id);
-    return 0;
-}
-```
-This example can not pass because of `reg_addr` and `id` are local variables in main thread, so UDMA can not transfer buffer with starting address out of the range of L2 memory. So users need to put the local variables in L2 memory. By default, global variables are in L2. Here is the right way :
-```
-#include "mbed.h"
-// Read BMP280 ID
-I2C i2c(I2C0_SDA, I2C0_SCL);
-
-#define BMP_ADDR  0xEC;
-
-GAP_L2_DATA char reg_addr;
-GAP_L2_DATA char id;
-
-int main() {
-
-    i2c.frequency(200000);
-    reg_addr = 0xD0;
-
-    i2c.write(BMP_ADDR, &reg_addr, 1, 1);
-    i2c.read(BMP_ADDR, &id, 1);
-
-    printf("Read ID = %x\n", id);
-    return 0;
-}
-```
-In conclusion, if users want to use L2 memory for main thread stack, then, you will have not this problem, but the speed and power consumption of your program will deteriorate.
 
 
 # PINOUT
@@ -160,7 +111,7 @@ spi.udma_cs(1);
 ```
 
 GAP8's SPI master 0 supports Quad-SPI mode, so we have added some extension APIs to support QSPI by using command sequence.
-In command sequence mode, user do not need to control chip select signal, it will control by UDMA automatically.
+In command sequence mode, users do not need to control chip select signal, it will control by UDMA automatically.
 
 For some devices where you need polling status, GAP8 SPI and QSPI interfaces also provide an auto polling mechanism.
 
