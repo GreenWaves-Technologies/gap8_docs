@@ -83,7 +83,9 @@ spi.write(0x8F);
 // Deselect the device
 cs = 1;
 ```
-However, in GAP8 all transfer is controlled by UDMA through command sequences, here we provide users with special control function for chip select:
+However, in GAP8 transfer is controlled by UDMA through command sequences,
+users can choose using GPIO in C++ API to control chip select pin (except SPI0_CSN0),
+and we also provide users with special control function for chip select:
 ```
 /** Control spi master chip select status
  *
