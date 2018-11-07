@@ -45,7 +45,7 @@ export DOXTEMPLATE=$(PULP_OS_DIR)/dox
 export PULP_PROJECT_HOME
 
 export AUTOTILER_SRC=$(GAP_SDK_HOME)/tools/autotiler
-export AUTOTILER_GENERATOR_SRC=$(GAP_SDK_HOME)/tools/autotiler/autotiler_generator
+export AUTOTILER_GENERATOR_SRC=$(GAP_SDK_HOME)/tools/autotiler/generators
 export AUTOTILER_EXAMPLES_SRC=$(GAP_SDK_HOME)/examples/pulp-examples/autotiler_examples
 
 export BUILD_DIR=$(DOC_DIR)/BUILD
