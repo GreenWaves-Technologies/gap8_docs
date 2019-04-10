@@ -33,7 +33,7 @@
 
 OUTPUT_DIRECTORY       = BUILD/PULP-OS
 
-INPUT                  = $(GAP_SDK_HOME)/pulp-os/include/rt $(RT_BASE)/groups.h \
+INPUT                  = $(TARGET_INSTALL_DIR)/include/rt $(RT_BASE)/groups.h \
                          $(RT_BASE)/builtins.h $(GAP8_BUILTINS) $(BUILD_DIR)/PULP-OS/mainpage.md
 
 @INCLUDE = $(COM_BASE)/common.dxy

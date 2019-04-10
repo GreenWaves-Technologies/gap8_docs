@@ -26,7 +26,8 @@ The sliding windows detector tests for the existence of a pedestrian in each loc
 \newpage
 
 
-## What in this Folder:
+## Structure of the directory
+
 
 Application files:
 
@@ -140,12 +141,6 @@ In the main.c file change the name of the input file:
 char *ImageName = "MyNewImage.ppm";
 ~~~~
 
-In the Makefile change the following line:
-
-~~~~Makefile
-override CONFIG_OPT += hyperflash hyperflash/fs/files=$(CURDIR)/MyNewImage.ppm
-
-~~~~
 
 ## Citations
 

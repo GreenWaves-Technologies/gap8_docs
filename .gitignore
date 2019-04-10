@@ -1,2 +1,3 @@
-BUILD/
-gap_doc.html
+BUILD*
+*.pdf
+*.html

@@ -9,7 +9,7 @@ Light and easily configurable, it supports multi-tasking, various synchronizatio
 ## FreeRTOS Structure
 
 ~~~
-freeRTOS                              
+freeRTOS
 ├── demos                     <- This folder contains a "Hello World" demo.
 ├── lib                       <- The kernel source code and the port files are here.
 │   ├── FreeRTOS              <- FreeRTOS source code.
@@ -157,6 +157,13 @@ In `vTestHelloWorld()`, the task prints "Hello World" with its name, core ID and
 
 In the released FreeRTOS, *Idle Task hook* is used to get details of tasks or delete suspended tasks. Once again, you may edit *FreeRTOS_util.c* to your convenience.
 
+## Use uart for printf
+Console through uart will be triggered by flag PRINTF_UART, which should be add in the user makefile:
+
+~~~~shell
+FREERTOS_FLAGS += -DPRINTF_UART=1
+~~~~
+
 # FreeRTOS Scheduler
 
 Tasks in FreeRTOS are classified in 4 states :
@@ -252,12 +259,13 @@ Few notes :
 
 | Type | Size | Location |
 |:---:|:---:|:---:|
+| Cluster Task Stack | 1KB | L1_TCDM |
 | Main Stack | 4KB | FC_TCDM |
+| ISR Stack | 1KB | FC_TCDM |
 | Idle Task Stack | 512B | L2_RAM |
 | FC Task Stack | User choice | L2_RAM |
-| Cluster Task Stack | 1KB | L1_TCDM |
 
-**Main  Stack** refers to the stack allocated for the `main()` function only. In FreeRTOS, when tasks are created and the scheduler called, there is no coming back to this function, this stack also can not be accessed. If variables/objects are to be passed to tasks, consider using global variables or dynamically allocate them in L2.
+**Main  Stack** refers to the stack allocated for the `main()` function only. In FreeRTOS, when tasks are created and the scheduler called, there is no coming back to this function, meaning the stack can also not be accessed. If variables/objects are to be passed to tasks, consider using global variables or dynamically allocate them in L2.
 
 For each created task, a memory chunk is allocated in L2_RAM, with th size depending on task's function. This is the **FC Task Stack**. When a part of the task is executed on the Cluster, then for each core enabled, 1KB memory is allocated in L1_TCDM(**Cluster Task Stack**).
 

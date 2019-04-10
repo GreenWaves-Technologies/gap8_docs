@@ -461,6 +461,12 @@ Hello World from cluster core 3!
 Test success
 Detected end of application, exiting with status: 0
 ````
+### Use uart for printf
+Console through uart will be triggered by flag PRINTF_UART, which should be add in the user makefile:
+
+~~~~shell
+MBED_FLAGS += -DPRINTF_UART=1
+~~~~
 
 ###Use [Mbed CLI](https://github.com/ARMmbed/mbed-cli)
  1 Download Arm® Mbed™ OS official examples.

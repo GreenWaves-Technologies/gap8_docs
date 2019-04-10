@@ -59,6 +59,8 @@ export APP_BASE=applications
 export TF_BASE=tf2gap8
 export MB_BASE=mbed-os
 export FR_BASE=freertos
+export VP_BASE=gvsoc
+export BM_BASE=benchmarks
 
 AT_MANUAL_NAME= autotiler.pdf
 HM_MANUAL_NAME= sdk_manual.pdf
@@ -66,13 +68,15 @@ APP_MANUAL_NAME= applications.pdf
 TF_MANUAL_NAME= tf2gap8.pdf
 MB_MANUAL_NAME= mbed-os.pdf
 FR_MANUAL_NAME= freertos.pdf
+VP_MANUAL_NAME= gvsoc.pdf
+BM_MANUAL_NAME= benchmarks.pdf
 
 HM_MANUAL_BITS= $(HM_BASE)/header.md $(HM_BASE)/readme_extract.md $(HM_BASE)/footer.md
 
 APP_MANUAL_BITS= $(wildcard $(APP_BASE)/doc_*.md)
 RT_MANUAL_BITS= $(addprefix $(RT_BASE)/, doc_sdk_manual.md doc_optimization.md doc_optimization_example.md)
 
-ALL_TABS= HOME PULP-OS MBED-OS FREERTOS AUTOTILER APPLICATIONS TF2GAP8
+ALL_TABS= HOME PULP-OS MBED-OS FREERTOS AUTOTILER APPLICATIONS TF2GAP8 GVSOC BENCHMARKS
 ALL_PDFS= HOME_PDF AUTOTILER_PDF APPLICATIONS_PDF TF2GAP8_PDF
 
 all: reference
@@ -143,6 +147,8 @@ $(eval $(call builddocs,APPLICATIONS,APP))
 $(eval $(call builddocs,TF2GAP8,TF))
 $(eval $(call builddocs,MBED-OS,MB,$(MB_BASE)/groups.h))
 $(eval $(call builddocs,FREERTOS,FR,$(FR_BASE)/groups.h))
+$(eval $(call builddocs,GVSOC,VP))
+$(eval $(call builddocs,BENCHMARKS,BM))
 
 define buildpdf
 

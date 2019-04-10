@@ -16,7 +16,7 @@ For instance, in the first step of the algorithm, which applies a Gaussian Filte
 |---------------|---------------------------------|
 |CannyDetect.c  |  Source code of the application |
 |Makefile       |  Makefile of this application   |
-|Mills.h        |  A pre-defined image buffer      |
+|Mills.h        |  A pre-defined image buffer     |
 |README.md      |  This readme file               |
 
 ## How to build and execute the application
@@ -27,19 +27,6 @@ To run the example using the simulator type:
 
 ~~~~~sh
 make clean all run
-~~~~~
-
-If you are using the FPGA Emulator first uncomment the `-DFPGA` in the Makefile and then type:
-
-~~~~~sh
-make conf CONFIG_OPT=platform=fpga
-make clean all run
-~~~~~
-
-If you want to reuse GVSOC, don't forget to type:
-
-~~~~~sh
-make conf CONFIG_OPT=platform=gvsoc
 ~~~~~
 
 ## Result
@@ -90,3 +77,5 @@ Total with Master                     :    1218337 Cycles
 ~~~~~
 
 With a core frequency of 100MHz this would execute in \~12ms if all 8 cores are used.
+
+

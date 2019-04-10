@@ -143,6 +143,17 @@ Leaving main controller
 
 Notice the control flow, main on FC, then cluster_entry, then hello on all the cores, then return to cluster_entry, then end_of_call and then back to main.
 
+## How to console through uart
+
+In pulp os, the printf will go through JTAG by default. If you want to console via uart, please define parameter "__rt_iodev" in your program as below:
+
+~~~~c
+unsigned int __rt_iodev=RT_IODEV_UART;
+~~~~
+
+This global variable will trigger the console on serial port.
+
+
 ## How to allocate memory
 
 As mentioned before, there are three areas of memory in GAP8, the FC L1 memory, the shared L1 cluster memory and the L2 memory. The L2 memory is the home for all code and data. The L1 areas are the location for temporary blocks of data that requires very fast access from the associated core. The shared L1 cluster memory is only accessible when the cluster has been mounted.

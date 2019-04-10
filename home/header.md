@@ -1,5 +1,5 @@
 
-# Introduction to the GAP8 IoT application processor
+# Introduction of the GAP8 IoT application processor
 
 GAP8 is a RISC-V and PULP (Parallel Ultra-Low-Power Processing Platform) open-source platform based IoT application processor. It enables cost-effective development, deployment and autonomous operation of intelligent devices that capture, analyze, classify and act on the fusion of rich data sources such as images, sounds or vibrations. In particular, GAP8 is uniquely optimized to execute a large spectrum of image and audio algorithms including convolutional neural network inference with extreme energy efficiency. This allows industrial and consumer product manufacturers to integrate artificial intelligence and advanced classification into new classes of wireless edge devices for IoT applications including image recognition, counting people and objects, machine health monitoring, home security, speech recognition, consumer robotics and smart toys.
 

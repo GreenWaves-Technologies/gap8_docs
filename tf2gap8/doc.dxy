@@ -26,7 +26,7 @@
 
 @INCLUDE = $(DOXTEMPLATE)/pulp-rt/pulp-rt.dxy
 
-PROJECT_NAME           = TF2GAP8
+PROJECT_NAME           =
 
 PROJECT_NUMBER         = "Version 1.0"
 
