@@ -29,8 +29,8 @@ As we can see in the gap8 architectrue below, it has three main memories:
 To use the heap of these memory space:
 | Memory Type | Allocator | De-Allocator
 |------------- |---------- |-------
-| L1 TCDM | void* L1_Malloc(ize_t size) | void L1_Free(void *ptr, size_t size)
-| FC TCDM | void* FC_Malloc(size_t size) | void FC_Free(void *ptr, size_t size)
+| L1 TCDM | void* L1_Malloc(size_t size) | void L1_Free(void *ptr)
+| FC TCDM | void* FC_Malloc(size_t size) | void FC_Free(void *ptr)
 | L2 RAM | void* malloc (size_t size) | void free (void* ptr);
 
 So how to use these memory resources in Arm® Mbed™ OS to create an efficient software system is our objective, here we give a suggestion for each thread stack configuration for OS.
@@ -91,7 +91,7 @@ int main() {
     return 0;
 }
 ```
-In conclusion, if users want to use L2 memory for main thread stack, then, you will have not this problem, but the speed and power consumption of your program will deteriorate.
+In conclusion, if users want to use L2 memory for main thread stack, you can checkout to `mbed-os-l2-stack` branch, then, you will not have this problem, but the speed and power consumption of your program will deteriorate.
 
 
 # PINOUT
